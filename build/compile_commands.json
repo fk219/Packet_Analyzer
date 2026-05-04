@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/workspace/build",
+  "command": "/usr/bin/c++  -I/workspace/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/packet_analyzer.dir/src/main.cpp.o -c /workspace/src/main.cpp",
+  "file": "/workspace/src/main.cpp",
+  "output": "CMakeFiles/packet_analyzer.dir/src/main.cpp.o"
+},
+{
+  "directory": "/workspace/build",
+  "command": "/usr/bin/c++  -I/workspace/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/packet_analyzer.dir/src/pcap_reader.cpp.o -c /workspace/src/pcap_reader.cpp",
+  "file": "/workspace/src/pcap_reader.cpp",
+  "output": "CMakeFiles/packet_analyzer.dir/src/pcap_reader.cpp.o"
+},
+{
+  "directory": "/workspace/build",
+  "command": "/usr/bin/c++  -I/workspace/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/packet_analyzer.dir/src/packet_parser.cpp.o -c /workspace/src/packet_parser.cpp",
+  "file": "/workspace/src/packet_parser.cpp",
+  "output": "CMakeFiles/packet_analyzer.dir/src/packet_parser.cpp.o"
+}
+]
