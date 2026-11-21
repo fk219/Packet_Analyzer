@@ -8,8 +8,8 @@ This is the MERN rebuild of the original C++ DPI engine. The C++ implementation 
 
 | Surface | URL |
 |---|---|
-| React capture lab | _pending deployment_ |
-| Express API | _pending deployment_ |
+| React capture lab | https://packet-analyzer-swart.vercel.app |
+| Express API | https://packet-analyzer-api-11k7.onrender.com/api/health |
 
 ## What works
 
