@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: packet-analyzer-api
+    runtime: node
+    plan: free
+    region: singapore
+    rootDir: api
+    buildCommand: npm install --omit=dev
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: CORS_ORIGIN
+        sync: false
+      - key: MAX_UPLOAD_BYTES
+        value: "8388608"
