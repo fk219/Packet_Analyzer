@@ -1,9 +1,14 @@
 const base = import.meta.env.VITE_API_URL || '';
+const operatorToken = import.meta.env.VITE_DEMO_ADMIN_TOKEN || 'demo-operator-key';
 
 async function request(path, options = {}) {
   const headers = options.body instanceof FormData
-    ? { ...(options.headers || {}) }
-    : { 'content-type': 'application/json', ...(options.headers || {}) };
+    ? { 'x-demo-admin-token': operatorToken, ...(options.headers || {}) }
+    : {
+        'content-type': 'application/json',
+        'x-demo-admin-token': operatorToken,
+        ...(options.headers || {})
+      };
   const response = await fetch(`${base}${path}`, { ...options, headers });
   const data = await response.json().catch(() => ({}));
   if (!response.ok) {

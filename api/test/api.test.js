@@ -16,24 +16,25 @@ beforeAll(async () => {
   app = createApp();
   models = await import('../src/models.js');
   ({ seedRules } = await import('../src/rules.js'));
-});
+}, 60000);
 
 beforeEach(async () => {
   await models.Analysis.deleteMany({});
   await models.Rule.deleteMany({});
   await seedRules();
-});
+}, 30000);
 
 afterAll(async () => {
   await db.disconnectDb();
   await mongod.stop();
-});
+}, 30000);
 
 describe('Packet analyzer API', () => {
-  it('serves health and the app catalogue', async () => {
+  it('serves health with MongoDB readiness and the app catalogue', async () => {
     const health = await request(app).get('/api/health');
     expect(health.status).toBe(200);
     expect(health.body.ok).toBe(true);
+    expect(health.body.database).toBe('connected');
 
     const apps = await request(app).get('/api/apps');
     expect(apps.status).toBe(200);
@@ -59,6 +60,7 @@ describe('Packet analyzer API', () => {
   it('updates rules and applies them to the next run', async () => {
     const updated = await request(app)
       .put('/api/rules')
+      .set('x-demo-admin-token', 'demo-operator-key')
       .send({ blockedApps: [], blockedDomains: [] });
     expect(updated.status).toBe(200);
 
@@ -73,9 +75,25 @@ describe('Packet analyzer API', () => {
     expect(response.status).toBe(400);
   });
 
-  it('deletes a run', async () => {
+  it('gates rule changes and deletes behind the operator token', async () => {
+    const deniedRules = await request(app)
+      .put('/api/rules')
+      .send({ blockedApps: [], blockedDomains: [] });
+    expect(deniedRules.status).toBe(401);
+
+    const invalidRules = await request(app)
+      .put('/api/rules')
+      .set('x-demo-admin-token', 'demo-operator-key')
+      .send({ blockedApps: 'not-an-array' });
+    expect(invalidRules.status).toBe(400);
+
     const analyzed = await request(app).post('/api/analyze/demo');
-    const removed = await request(app).delete(`/api/runs/${analyzed.body.run.id}`);
+    const deniedDelete = await request(app).delete(`/api/runs/${analyzed.body.run.id}`);
+    expect(deniedDelete.status).toBe(401);
+
+    const removed = await request(app)
+      .delete(`/api/runs/${analyzed.body.run.id}`)
+      .set('x-demo-admin-token', 'demo-operator-key');
     expect(removed.status).toBe(200);
     const runs = await request(app).get('/api/runs');
     expect(runs.body.items).toHaveLength(0);

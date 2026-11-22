@@ -46,15 +46,26 @@ engine/              Original C++ DPI engine and sample captures
 
 | Method | Path | Purpose |
 |---|---|---|
-| `GET` | `/api/health` | Health check |
+| `GET` | `/api/health` | Health check with MongoDB readiness |
+| `GET` | `/api/openapi.json` | OpenAPI 3.1 contract |
 | `GET` | `/api/apps` | Classifier catalogue |
 | `GET` | `/api/rules` | Current blocking rules |
-| `PUT` | `/api/rules` | Update blocked apps/domains |
+| `PUT` | `/api/rules` | Update blocked apps/domains (operator token) |
 | `POST` | `/api/analyze` | Upload and parse a PCAP |
 | `POST` | `/api/analyze/demo` | Parse the generated demo capture |
 | `GET` | `/api/runs` | Saved analysis history |
 | `GET` | `/api/runs/:id` | One full analysis |
-| `DELETE` | `/api/runs/:id` | Remove a saved analysis |
+| `DELETE` | `/api/runs/:id` | Remove a saved analysis (operator token) |
+
+## Operator gate and API contract
+
+Rule changes and run deletion require the `x-demo-admin-token` header. The default
+demo value is `demo-operator-key`; set `ADMIN_TOKEN` on Render to override it. This
+is a demo gate, not production authentication. Upload and demo endpoints are
+rate-limited and parsed in memory.
+
+The OpenAPI contract is served at `/api/openapi.json`. Each response carries an
+`x-request-id`, and the API emits one structured JSON log line per request.
 
 ## Run locally
 
@@ -75,13 +86,14 @@ npm run dev:web
 npm test
 ```
 
-Seven tests cover the parser, demo capture, SNI classification, flow counts, stored history, rule changes, invalid uploads, and deletion.
+Seven tests cover the parser, demo capture, SNI classification, flow counts, stored history, MongoDB readiness, operator-token gating, schema validation, invalid uploads, and deletion.
 
 ## Deployment
 
 - **Frontend:** Vercel static build, proxying `/api` to the Render API.
-- **API:** Render web service from `api/`.
+- **API:** Render web service from `api/`; a production-style `Dockerfile` is included.
 - **Database:** MongoDB Atlas database `packetanalyzer` on `Cluster0`.
+- **CI:** GitHub Actions runs API tests and the frontend build on every push.
 
 ## Honest limitations
 
