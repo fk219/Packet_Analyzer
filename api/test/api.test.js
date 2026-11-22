@@ -16,7 +16,7 @@ beforeAll(async () => {
   app = createApp();
   models = await import('../src/models.js');
   ({ seedRules } = await import('../src/rules.js'));
-}, 60000);
+}, 120000);
 
 beforeEach(async () => {
   await models.Analysis.deleteMany({});
