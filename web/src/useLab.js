@@ -17,29 +17,32 @@ export function useLab() {
     return response.items;
   }, []);
 
-  useEffect(() => {
-    let active = true;
-    Promise.all([api.runs(20), api.rules(), api.apps()])
-      .then(async ([runsResponse, rulesResponse, appsResponse]) => {
-        if (!active) return;
-        setRuns(runsResponse.items);
-        setRules(rulesResponse.rules);
-        setApps(appsResponse.apps);
-        if (runsResponse.items[0]) {
-          const detail = await api.run(runsResponse.items[0].id);
-          if (active) setRun(detail.run);
-        }
-      })
-      .catch((err) => {
-        if (active) setError(err.message);
-      })
-      .finally(() => {
-        if (active) setLoading(false);
-      });
-    return () => {
-      active = false;
-    };
+  const reload = useCallback(async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const [runsResponse, rulesResponse, appsResponse] = await Promise.all([
+        api.runs(20),
+        api.rules(),
+        api.apps()
+      ]);
+      setRuns(runsResponse.items);
+      setRules(rulesResponse.rules);
+      setApps(appsResponse.apps);
+      if (runsResponse.items[0]) {
+        const detail = await api.run(runsResponse.items[0].id);
+        setRun(detail.run);
+      }
+    } catch (err) {
+      setError(err.message || 'The API did not answer. It may be waking up.');
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    void reload();
+  }, [reload]);
 
   const withAction = async (name, task) => {
     setAction(name);
@@ -120,6 +123,7 @@ export function useLab() {
     loadRun,
     saveRules,
     removeRun,
-    refreshRuns
+    refreshRuns,
+    reload
   };
 }

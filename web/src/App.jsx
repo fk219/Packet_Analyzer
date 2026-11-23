@@ -1,5 +1,5 @@
 import { NavLink, Route, Routes } from 'react-router-dom';
-import { Activity, Boxes, Radar, ScanLine } from 'lucide-react';
+import { Activity, Boxes, RefreshCw, ScanLine } from 'lucide-react';
 import { useLab } from './useLab.js';
 import { Dashboard } from './pages/Dashboard.jsx';
 import { History } from './pages/History.jsx';
@@ -14,7 +14,7 @@ function Mark() {
   );
 }
 
-function Shell({ children, run, action, error, notice }) {
+function Shell({ children, run, action, error, notice, onRetry }) {
   return (
     <div className="site-shell">
       <header className="topbar">
@@ -29,7 +29,7 @@ function Shell({ children, run, action, error, notice }) {
         <nav className="nav" aria-label="Primary">
           <NavLink to="/" end>Capture</NavLink>
           <NavLink to="/history">History</NavLink>
-          <NavLink to="/how-it-works">Method</NavLink>
+          <NavLink to="/how-it-works">Guide</NavLink>
         </nav>
 
         <div className="topbar-status">
@@ -44,7 +44,14 @@ function Shell({ children, run, action, error, notice }) {
       </header>
 
       <main className="main">
-        {error && <div className="banner bad" role="alert"><strong>API error.</strong> {error}</div>}
+        {error && (
+          <div className="banner bad" role="alert">
+            <span><strong>API error.</strong> {error}</span>
+            <button type="button" className="btn secondary small" onClick={onRetry}>
+              <RefreshCw size={12} /> Retry
+            </button>
+          </div>
+        )}
         {notice && <div className="banner good" role="status">{notice}</div>}
         {children}
       </main>
@@ -60,7 +67,13 @@ function Shell({ children, run, action, error, notice }) {
 export default function App() {
   const data = useLab();
   return (
-    <Shell run={data.run} action={data.action} error={data.error} notice={data.notice}>
+    <Shell
+      run={data.run}
+      action={data.action}
+      error={data.error}
+      notice={data.notice}
+      onRetry={data.reload}
+    >
       <Routes>
         <Route path="/" element={<Dashboard data={data} />} />
         <Route path="/history" element={<History data={data} />} />

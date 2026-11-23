@@ -17,19 +17,57 @@ export function HowItWorks({ data }) {
     <div className="page">
       <header className="page-head">
         <div>
-          <p className="eyebrow">METHOD / THE PARSER, STEP BY STEP</p>
+          <p className="eyebrow">GUIDE / WHAT THIS IS + HOW TO USE IT</p>
           <h1>
-            No magic.
+            Read the wire.
             <br />
-            <em>Just headers.</em>
+            <em>Then decide what to block.</em>
           </h1>
           <p className="lede">
-            The parser reads bytes in order: capture header, packet records, Ethernet, IP, transport,
-            and the little TLS or DNS payload that names the application.
+            Packet Lab turns a classic PCAP into a readable story: which applications spoke, which
+            domains appeared, which flows were refused, and which rules caused the refusal. The guide
+            below is the shortest path from a capture file to a decision.
           </p>
         </div>
         <Link to="/" className="back-link">Run a capture <ArrowRight size={13} /></Link>
       </header>
+
+      <section className="quick-guide">
+        <div className="quick-guide-head">
+          <p className="eyebrow">START HERE / FOUR MOVES</p>
+          <h2>How to use Packet Lab.</h2>
+          <p>
+            No install. The demo capture is synthetic and safe to inspect. Upload your own classic
+            <code>.pcap</code> when you want to read real traffic from your own network.
+          </p>
+        </div>
+        <div className="quick-guide-grid">
+          <article>
+            <span>01</span>
+            <h3>Bring a capture</h3>
+            <p>Drop a classic <code>.pcap</code> (not pcapng) into the intake panel, or press Analyze demo capture.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Set the rules</h3>
+            <p>Choose the apps and domains the wire should refuse. Rules apply to the next analysis.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Read the flows</h3>
+            <p>Start with the metric strip, then scan applications, destinations, and the packet trace.</p>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>Keep the evidence</h3>
+            <p>Every run is stored with the exact rule snapshot. Open History to compare or delete a run.</p>
+          </article>
+        </div>
+        <div className="quick-guide-actions">
+          <Link to="/" className="btn primary">Open the capture lab <ArrowRight size={14} /></Link>
+          <Link to="/history" className="btn secondary">Browse saved captures</Link>
+        </div>
+      </section>
 
       <section className="pipeline">
         <div className="pipeline-step">
