@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://packet-analyzer-api-11k7.onrender.com/api/:path*"
+      "destination": "https://packet-analyzer-api-ud0m.onrender.com/api/:path*"
     },
     {
       "source": "/:path*",
