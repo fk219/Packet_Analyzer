@@ -1666,7 +1666,7 @@ h2 {
 }
 
 /* --------------------------------------------------------------------------
-   Packet Lab — Signal Paper redesign
+   PacketAnalyzer — Signal Paper redesign
    A light, industrial forensic notebook. Ink, safety orange, electric blue.
    -------------------------------------------------------------------------- */
 
@@ -2349,3 +2349,36 @@ textarea:focus {
   }
 }
 
+
+/* ---------------------------------------------------------------- */
+/* Theme switch: daylight network lab                               */
+/* ---------------------------------------------------------------- */
+html[data-theme="light"] {
+  --bg: #f2f6f6;
+  --panel: #ffffff;
+  --panel-2: #eaf1f2;
+  --line: #cbdcdf;
+  --line-strong: #aec7cb;
+  --ink: #0b1c22;
+  --muted: #506a70;
+  --faint: #6f878c;
+  --cyan: #007c96;
+  --lime: #4f7a00;
+  --amber: #a85b00;
+  --red: #c0342b;
+  --theme-toggle-bottom: 18px;
+  color-scheme: light;
+}
+
+html[data-theme="light"] body {
+  background:
+    linear-gradient(rgba(11, 28, 34, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11, 28, 34, 0.035) 1px, transparent 1px),
+    radial-gradient(circle at 80% -10%, rgba(0, 124, 150, 0.1), transparent 34rem),
+    var(--bg);
+  background-size: 42px 42px, 42px 42px, auto, auto;
+}
+
+html[data-theme="light"] ::selection {
+  background: rgba(0, 124, 150, 0.2);
+}

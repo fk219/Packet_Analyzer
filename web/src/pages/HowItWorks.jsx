@@ -24,7 +24,7 @@ export function HowItWorks({ data }) {
             <em>Then decide what to block.</em>
           </h1>
           <p className="lede">
-            Packet Lab turns a classic PCAP into a readable story: which applications spoke, which
+            PacketAnalyzer turns a classic PCAP into a readable story: which applications spoke, which
             domains appeared, which flows were refused, and which rules caused the refusal. The guide
             below is the shortest path from a capture file to a decision.
           </p>
@@ -35,7 +35,7 @@ export function HowItWorks({ data }) {
       <section className="quick-guide">
         <div className="quick-guide-head">
           <p className="eyebrow">START HERE / FOUR MOVES</p>
-          <h2>How to use Packet Lab.</h2>
+          <h2>How to use PacketAnalyzer.</h2>
           <p>
             No install. The demo capture is synthetic and safe to inspect. Upload your own classic
             <code>.pcap</code> when you want to read real traffic from your own network.

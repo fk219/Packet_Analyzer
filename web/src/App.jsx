@@ -18,7 +18,7 @@ function Shell({ children, run, action, error, notice, onRetry }) {
   return (
     <div className="site-shell">
       <header className="topbar">
-        <NavLink to="/" className="brand" aria-label="Packet Lab home">
+        <NavLink to="/" className="brand" aria-label="PacketAnalyzer home">
           <Mark />
           <div>
             <p className="brand-name">PACKET / LAB</p>

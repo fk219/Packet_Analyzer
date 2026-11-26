@@ -1,7 +1,7 @@
 export const openapi = {
   openapi: '3.1.0',
   info: {
-    title: 'Packet Lab API',
+    title: 'PacketAnalyzer API',
     version: '1.0.0',
     description:
       'Classic PCAP parsing, TLS SNI/DNS/HTTP classification, flow aggregation, blocking rules, and MongoDB-backed analysis history.'

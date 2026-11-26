@@ -1,10 +1,10 @@
-# Packet Lab — Guide
+# PacketAnalyzer — Guide
 
 ## What it is
 
-Packet Lab is a deep packet inspection workbench. It parses classic PCAP captures, walks Ethernet/IP/TCP/UDP headers, extracts TLS SNI, DNS names, and HTTP Host headers, classifies applications, and applies blocking rules.
+PacketAnalyzer is a deep packet inspection workbench. It parses classic PCAP captures, walks Ethernet/IP/TCP/UDP headers, extracts TLS SNI, DNS names, and HTTP Host headers, classifies applications, and applies blocking rules.
 
-- **Live app:** https://packetlab.furqankhan.dev
+- **Live app:** https://packetanalyzer.furqankhan.dev
 - **API:** https://packet-analyzer-api-11k7.onrender.com
 
 ## How to analyze a capture

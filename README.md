@@ -1,15 +1,26 @@
-# Packet Lab — Deep Packet Inspection, MERN
+# PacketAnalyzer — Deep Packet Inspection, MERN
 
 A live PCAP analysis lab. Upload a capture, parse Ethernet/IP/TCP/UDP, extract TLS SNI, DNS names, and HTTP Host headers, classify applications, and apply blocking rules. Every analysis is stored in MongoDB and keeps a snapshot of the rules that were active.
 
 This is the MERN rebuild of the original C++ DPI engine. The C++ implementation is preserved in [`engine/`](engine/) for reference.
 
+## Credits and my contribution
+
+- Original C++ DPI engine: `perryvegehan`, preserved in `engine/` for reference.
+- The MERN rebuild, PCAP parser, classifier, REST API, React lab, tests, Dockerfile, and deployment are the work presented in this repository.
+
 ## Live demo
 
 | Surface | URL |
 |---|---|
-| React capture lab | https://packet-analyzer-swart.vercel.app |
+| React capture lab | https://packetanalyzer.furqankhan.dev |
 | Express API | https://packet-analyzer-api-11k7.onrender.com/api/health |
+
+## Screenshots
+
+| Capture lab | Analysis |
+|---|---|
+| ![PacketAnalyzer capture lab](docs/home.png) | ![PacketAnalyzer analysis](docs/analysis.png) |
 
 ## What works
 
@@ -103,3 +114,7 @@ Seven tests cover the parser, demo capture, SNI classification, flow counts, sto
 - Checksums are not validated; the parser trusts the capture bytes.
 - The built-in demo capture is synthetic and labelled `source: demo`.
 - Payloads are not stored; the database keeps flow summaries and a short packet trace.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
